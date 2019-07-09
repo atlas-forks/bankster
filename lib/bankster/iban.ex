@@ -122,6 +122,8 @@ defmodule Bankster.Iban do
     "YT" => %{length: 27, rule: ~r/^[0-9]{10}[0-9A-Z]{11}[0-9]{2}$/i}
   }
 
+  @supported_countries Map.keys(@iban_rules)
+
   @replacements %{
     "A" => "10",
     "B" => "11",
@@ -266,6 +268,9 @@ defmodule Bankster.Iban do
   """
   @spec valid?(String.t()) :: boolean
   def valid?(iban), do: match?({:ok, _}, validate(iban))
+
+  @spec supported_countries :: [binary]
+  def supported_countries, do: @supported_countries
 
   ##################################################
   ## HELPERS
